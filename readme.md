@@ -20,4 +20,6 @@ versions, running tests, running "integration" tests
 - Not a fan of passing the "received on" timestamps in the queries. Seems like a bug waiting to happen.
 - Known: if Stow fails during the "updates" there's no rollback
 - I wimped out on mocking the db for the tests
+- Probably should verify valid Warehouse IDs
+- Debated a few ways to do a cleaner set of validators, again, wimped for this version
 
