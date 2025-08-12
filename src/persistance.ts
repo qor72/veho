@@ -7,8 +7,15 @@ const db = new Loki('veho.db', { autoload: false, autosave: false });
 const packages = db.getCollection('packages') || db.addCollection('packages', { unique: ['packageId'] });
 const pallets = db.getCollection('pallets') || db.addCollection('pallets', { unique: ['palletId'] });
 
-// TODO Load Data?
+const rightNowTimestamp = Math.floor(Date.now() / 1000);
 
-console.log(db.listCollections());
+// Packages default data
+packages.insert([
+    { packageId: 'PKGREADY', description: 'Ready Package', status: "READY", receivedOn: 0, receivingWarehouseID: null },
+    { packageId: 'PKGINDUCTED', description: 'Already Inducted', status: "INDUCTED", receivedOn: rightNowTimestamp, receivingWarehouseID: "WH01" },
+    { packageId: 'PKGSTOWED', description: 'Stowed somewhere', status: "STOWED", receivedOn: rightNowTimestamp, receivingWarehouseID: "WH01" },
+])
+
+// TODO Pallets default data
 
 module.exports = db;

@@ -23,6 +23,11 @@ function do_induct_of(input: { packageId: string; receivingWarehouseId: string; 
         return result;
     }
 
+    if (thePackage.status !== 'READY') {
+        result.message = `Package with ID ${input.packageId} is not in READY status and cannot be inducted. Current status: ${thePackage.status}.`;
+        return result;
+    }
+
     result.success = true;
     result.message = `Inducted package ${input.packageId} into warehouse ${input.receivingWarehouseId}`;
     return result;

@@ -6,13 +6,16 @@
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/graphqlServer.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest"
   },
   "keywords": [],
   "author": "Al Goodniss",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.2.1",
+    "jest": "^30.0.5",
+    "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
@@ -20,6 +23,14 @@
     "express": "^5.1.0",
     "express-graphql": "^0.12.0",
     "graphql": "^15.10.1",
-    "lokijs": "^1.5.12"
+    "lokijs": "^1.5.12",
+    "node-fetch": "^3.3.2"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/test"
+    ]
   }
 }
