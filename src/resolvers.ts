@@ -1,3 +1,5 @@
+const { do_induct_of } = require('./doInductOf');
+
 const root = {
     Query: {
         _empty: () => null,
@@ -7,8 +9,7 @@ const root = {
         return `Stowed: ${input.value}`;
     },
     induct: ({ input }: { input: { packageId: string, receivingWarehouseId: string, receivedOn: number } }) => {
-        // Implement your induct logic here
-        return `Inducted: ${input.packageId}, ${input.receivingWarehouseId}, ${input.receivedOn}`;
+        return do_induct_of(input);
     },
 };
 
