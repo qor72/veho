@@ -30,13 +30,15 @@ function do_induct_of(input: { packageId: string; receivingWarehouseId: string; 
         return result;
     }
 
+    // Intentionally not checking Package's existing Warehouse ID; if the state has been altered, let it be updated
+
     thePackage.status = PackageStates.INDUCTED;
     thePackage.receivedOn = input.receivedOn;
     thePackage.receivingWarehouseID = input.receivingWarehouseId;
     packages.update(thePackage);
 
     result.success = true;
-    result.message = `Inducted package ${input.packageId} into warehouse ${input.receivingWarehouseId}`;
+    result.message = `Succesfully inducted package ${input.packageId} into warehouse ${input.receivingWarehouseId}`;
     return result;
 }
 

@@ -48,4 +48,17 @@ describe('test stow_packages', () => {
         expect(result.success).toBe(false);
         expect(result.message).toContain("already stowed on a pallet ");
     });
+
+    it('should work', () => {
+        const input = {
+            palletId: "PAL01",
+            stowedOn: 8675309,
+            packageIds: ["PKGINDUCTED"]
+        };
+        const result = stow_packages(input);
+        expect(result).not.toBeNull();
+        expect(result.success).toBe(true);
+        expect(result.message).toContain("Successfully stowed 1 packages on pallet PAL01");
+    });
+
 });

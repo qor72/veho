@@ -26,4 +26,17 @@ describe('testing do_induct_of', () => {
         expect(result.message).toContain(input.packageId);
         expect(result.message).toContain("not in READY status");
     });
+
+    it('should work', () => {
+        const input = {
+            packageId: 'PKGREADY',
+            receivingWarehouseId: 'WH456',
+            receivedOn: 1723459200
+        };
+        const result = do_induct_of(input);
+        expect(result).not.toBeNull();
+        expect(result.success).toBe(true);
+        expect(result.message).toContain(input.packageId);
+        expect(result.message).toContain("Succesfully inducted package");
+    });
 });
