@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --build",
     "start": "npm run build && ts-node src/graphqlServer.ts",
-    "test": "npm run build && npx jest"
+    "test": "npx jest"
   },
   "keywords": [],
   "author": "Al Goodniss",
