@@ -1,6 +1,15 @@
 const db = require('./persistance');
 
+enum PackageStates {
+    READY = "READY",
+    INDUCTED = "INDUCTED",
+    STOWED = "STOWED",
+    STAGED = "STAGED",
+    PICKED = "PICKED"
+}
+
 type InductionResult = {
+    packageId: string;
     success: boolean;
     message: string;
 };
@@ -8,7 +17,8 @@ type InductionResult = {
 function do_induct_of(input: { packageId: string; receivingWarehouseId: string; receivedOn: number }): InductionResult {
     var result: InductionResult = {
         success: false,
-        message: ""
+        message: "",
+        packageId: input.packageId
     };
 
     const packages = db.getCollection('packages');
@@ -23,10 +33,15 @@ function do_induct_of(input: { packageId: string; receivingWarehouseId: string; 
         return result;
     }
 
-    if (thePackage.status !== 'READY') {
+    if (thePackage.status !== PackageStates.READY) {
         result.message = `Package with ID ${input.packageId} is not in READY status and cannot be inducted. Current status: ${thePackage.status}.`;
         return result;
     }
+
+    thePackage.status = PackageStates.INDUCTED;
+    thePackage.receivedOn = input.receivedOn;
+    thePackage.receivingWarehouseID = input.receivingWarehouseId;
+    packages.update(thePackage);
 
     result.success = true;
     result.message = `Inducted package ${input.packageId} into warehouse ${input.receivingWarehouseId}`;
