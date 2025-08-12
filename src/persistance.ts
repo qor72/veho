@@ -1,13 +1,14 @@
 const Loki = require('lokijs');
 
-const db = new Loki('veho.db', { autoloadCallback: initData, autoload: true });
+// Create a new in memory database each time
+const db = new Loki('veho.db', { autoload: false, autosave: false });
 
-function initData() {
-    // Initialize collections
-    const stowCollection = db.getCollection('packages') || db.addCollection('packages');
-    const inductCollection = db.getCollection('pallets') || db.addCollection('pallets');
+// Initialize collections
+const packages = db.getCollection('packages') || db.addCollection('packages', { unique: ['packageId'] });
+const pallets = db.getCollection('pallets') || db.addCollection('pallets', { unique: ['palletId'] });
 
-    // TODO Load Data?
-}
+// TODO Load Data?
 
-module.exports = { db };
+console.log(db.listCollections());
+
+module.exports = db;
