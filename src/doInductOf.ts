@@ -1,4 +1,4 @@
-const db = require('./persistance');
+const { db } = require('./persistance');
 
 enum PackageStates {
     READY = "READY",
@@ -6,7 +6,7 @@ enum PackageStates {
     STOWED = "STOWED",
     STAGED = "STAGED",
     PICKED = "PICKED"
-}
+};
 
 type InductionResult = {
     packageId: string;
@@ -27,7 +27,6 @@ function do_induct_of(input: { packageId: string; receivingWarehouseId: string; 
     }
 
     var thePackage = packages.by('packageId', input.packageId);
-
     if (!thePackage) {
         result.message = `Package with ID ${input.packageId} not found. Please ensure the package exists before inducting.`;
         return result;
@@ -47,4 +46,5 @@ function do_induct_of(input: { packageId: string; receivingWarehouseId: string; 
     result.message = `Inducted package ${input.packageId} into warehouse ${input.receivingWarehouseId}`;
     return result;
 }
+
 module.exports = { do_induct_of };

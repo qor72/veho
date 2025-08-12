@@ -11,11 +11,14 @@ const rightNowTimestamp = Math.floor(Date.now() / 1000);
 
 // Packages default data
 packages.insert([
-    { packageId: 'PKGREADY', description: 'Ready Package', status: "READY", receivedOn: 0, receivingWarehouseID: null },
-    { packageId: 'PKGINDUCTED', description: 'Already Inducted', status: "INDUCTED", receivedOn: rightNowTimestamp, receivingWarehouseID: "WH01" },
-    { packageId: 'PKGSTOWED', description: 'Stowed somewhere', status: "STOWED", receivedOn: rightNowTimestamp, receivingWarehouseID: "WH01" },
-])
+    { packageId: 'PKGREADY', description: 'Ready Package', status: "READY", receivedOn: 0, receivingWarehouseID: null, palletId: null },
+    { packageId: 'PKGINDUCTED', description: 'Already Inducted', status: "INDUCTED", receivedOn: rightNowTimestamp, receivingWarehouseID: "WH01", palletId: null },
+    { packageId: 'PKGSTOWED', description: 'Stowed somewhere', status: "STOWED", receivedOn: rightNowTimestamp, receivingWarehouseID: "WH01", palletId: null },
+]);
 
-// TODO Pallets default data
+// Pallets default data
+// pallets.insert([
+//     { palletId: 'PAL01', description: 'Pallet 1', stowedOn: 0, packageIds: [] },
+// ]);
 
-module.exports = db;
+module.exports = { db };

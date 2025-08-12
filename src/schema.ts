@@ -1,10 +1,12 @@
 const { buildSchema } = require('graphql');
 
+// Using INT as a Date surrogate. Yup, it's a bug in 2038.
+
 const schema = buildSchema(`
   input InductInput {
-    packages: [ID!]!
+    packageIds: [ID!]!
     receivingWarehouseId: ID!
-    receivedOn: Int! # Yup, 2038 bug. Could do our own Date scalar
+    receivedOn: Int!
   }
 
   type InductItemResult {
@@ -19,7 +21,14 @@ const schema = buildSchema(`
     }
 
   input StowInput {
-    value: String!
+    palletId: ID!
+    stowedOn: Int!
+    packageIds: [ID!]!
+  }
+
+  type StowResult {
+    success: Boolean!
+    message: String!
   }
 
   # Empty root query to satisfy GraphQL requirement
@@ -27,8 +36,9 @@ const schema = buildSchema(`
     _empty: String
   }
 
+  # Required Mutations
   type Mutation {
-    stow(input: StowInput!): String!
+    stow(input: StowInput!): StowResult!
     induct(input: InductInput!): InductResult!
   }
 `);

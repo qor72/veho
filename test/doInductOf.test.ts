@@ -1,6 +1,6 @@
 const { do_induct_of } = require('../src/doInductOf');
 
-describe('do_induct_of', () => {
+describe('testing do_induct_of', () => {
     it('should return failure for a bad id', () => {
         const input = {
             packageId: 'PKG8675309',
@@ -13,6 +13,7 @@ describe('do_induct_of', () => {
         expect(result.message).toContain(input.packageId);
         expect(result.message).toContain("not found");
     });
+
     it('should fail on a non READY status', () => {
         const input = {
             packageId: 'PKGINDUCTED',
