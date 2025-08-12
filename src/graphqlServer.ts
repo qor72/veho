@@ -5,8 +5,10 @@ const { root } = require('./resolvers');
 const Loki = require('lokijs');
 
 const db = new Loki('veho.db');
-const stowCollection = db.addCollection('stow');
-const inductCollection = db.addCollection('induct');
+const stowCollection = db.addCollection('packages');
+const inductCollection = db.addCollection('pallets');
+
+// TODO Insert starter data (or load it)
 
 const app = express();
 
