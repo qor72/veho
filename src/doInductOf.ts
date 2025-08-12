@@ -1,12 +1,5 @@
 const { db } = require('./persistance');
-
-enum PackageStates {
-    READY = "READY",
-    INDUCTED = "INDUCTED",
-    STOWED = "STOWED",
-    STAGED = "STAGED",
-    PICKED = "PICKED"
-};
+const { PackageStates } = require('./packageStates');
 
 type InductionResult = {
     packageId: string;

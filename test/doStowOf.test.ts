@@ -37,4 +37,15 @@ describe('test stow_packages', () => {
         expect(result.message).toContain("The following packages are not in the database: PKGINVALIDTHINGY");
     });
 
+    it('should return false because package is already on a different pallet', () => {
+        const input = {
+            palletId: "PAL01",
+            stowedOn: 8675309,
+            packageIds: ["PKGBADDATA"]
+        };
+        const result = stow_packages(input);
+        expect(result).not.toBeNull();
+        expect(result.success).toBe(false);
+        expect(result.message).toContain("already stowed on a pallet ");
+    });
 });

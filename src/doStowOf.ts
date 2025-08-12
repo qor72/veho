@@ -1,4 +1,5 @@
 const { db } = require('./persistance');
+const { PackageStates } = require('./packageStates');
 
 type StowResult = {
     success: boolean;
@@ -33,7 +34,7 @@ function stow_packages(input: { palletId: string, stowedOn: number, packageIds: 
 
     // Really want to verify that packages are in the same warehouse as the pallet.../shrug
 
-    const packagesToStow = packages.find({ 'palletId': { '$in': input.packageIds } });
+    const packagesToStow = packages.find({ 'packageId': { '$in': input.packageIds } });
     if (packagesToStow.length !== input.packageIds.length) {
         const foundPackageIds = packagesToStow.map((p: any) => p.packageId);
         const notFoundPackageIds = input.packageIds.filter(id => !foundPackageIds.includes(id));
@@ -43,7 +44,7 @@ function stow_packages(input: { palletId: string, stowedOn: number, packageIds: 
         };
     }
 
-    const notReadyPackages = packagesToStow.filter((p: any) => p.status !== "INDUCTED");
+    const notReadyPackages = packagesToStow.filter((p: any) => p.status !== PackageStates.INDUCTED);
     if (notReadyPackages.length > 0) {
         const notReadyPackageIds = notReadyPackages.map((p: any) => p.packageId);
         return {
@@ -52,7 +53,8 @@ function stow_packages(input: { palletId: string, stowedOn: number, packageIds: 
         };
     }
 
-    // Choice: Allowing packages already on this pallet to be "re-stowed" here
+    // This validation feels a little wonky honestly. It would require a package to have a bad state (to get past the last check)
+    // as well as a valid pallet. 
     const alreadyOnPallet = packagesToStow.filter((p: any) => p.palletId !== null && p.palletId !== input.palletId);
     if (alreadyOnPallet.length > 0) {
         const alreadyOnPalletIds = alreadyOnPallet.map((p: any) => p.packageId);
@@ -62,8 +64,17 @@ function stow_packages(input: { palletId: string, stowedOn: number, packageIds: 
         };
     }
 
-    // TODO more Tests
-    // TODO Update all the tables (Pallets, Packages)
+    // TODO more Tests ??
+
+    thePallet.stowedOn = input.stowedOn;
+    thePallet.packageIds = [...new Set([...thePallet.packageIds, ...input.packageIds])];
+    pallets.update(thePallet);
+
+    packagesToStow.forEach((pkg: any) => {
+        pkg.status = PackageStates.STOWED;
+        pkg.palletId = input.palletId;
+        packages.update(pkg);
+    });
 
     return {
         success: true,

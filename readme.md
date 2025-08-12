@@ -19,4 +19,5 @@ versions, running tests, running "integration" tests
 - Shouldn't a Pallet also have a Warehouse associated with it so we can verify if a package can be put onto the pallet?
 - Not a fan of passing the "received on" timestamps in the queries. Seems like a bug waiting to happen.
 - Known: if Stow fails during the "updates" there's no rollback
+- I wimped out on mocking the db for the tests
 
