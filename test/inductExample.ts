@@ -1,4 +1,4 @@
-async function callStowMutation() {
+async function callInductMutation() {
   const query = `mutation Induct($input: InductInput!) {
   induct(input: $input) {
     success
@@ -33,4 +33,4 @@ async function callStowMutation() {
   }
 }
 
-callStowMutation().catch(console.error);
+callInductMutation().catch(console.error);
