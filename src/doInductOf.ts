@@ -8,6 +8,7 @@ type InductionResult = {
 };
 
 function do_induct_of(input: { packageId: string; receivingWarehouseId: string; receivedOn: number }): InductionResult {
+
     var result: InductionResult = {
         success: false,
         message: "",

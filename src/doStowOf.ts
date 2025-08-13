@@ -53,7 +53,7 @@ function stow_packages(input: { palletId: string, stowedOn: number, packageIds: 
         };
     }
 
-    // This validation feels a little wonky honestly. It would require a package to have a bad state (to get past the last check)
+    // This validation feels wonky. It would require a package to have a bad state (to get past the last check)
     // as well as a valid pallet. 
     const alreadyOnPallet = packagesToStow.filter((p: any) => p.palletId !== null && p.palletId !== input.palletId);
     if (alreadyOnPallet.length > 0) {
@@ -63,8 +63,6 @@ function stow_packages(input: { palletId: string, stowedOn: number, packageIds: 
             message: `The following packages are already stowed on a pallet and cannot be stowed again: ${alreadyOnPalletIds.join(', ')}.`,
         };
     }
-
-    // TODO more Tests ??
 
     thePallet.stowedOn = input.stowedOn;
     thePallet.packageIds = [...new Set([...thePallet.packageIds, ...input.packageIds])];
