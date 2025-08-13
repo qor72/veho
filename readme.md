@@ -8,7 +8,7 @@
 2. `npm install`
 
 ### Available actions
-- `npm build` -- build
+- `npm run build` -- build
 - `npm test` -- run unit tests
 - `npm start` -- start the GraphQL server on [localhost](http://localhost:4000/graphql)
 
