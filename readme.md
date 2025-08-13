@@ -1,22 +1,18 @@
 # Welcome!
 
-## TODO
-- All the documentation
-- Pushing it to GitHub
-
-
 ## Requirements
 - NodeJS v22.18.0 (a.k.a. `nvm use 22`)
 
-1. Pull down the repository
+## Installation/Setup
+1. Clone the repository
 2. `npm install`
 
-## Available actions
+### Available actions
 - `npm build` -- build
 - `npm test` -- run unit tests
 - `npm start` -- start the GraphQL server on [localhost](http://localhost:4000/graphql)
 
-## "Integration Tests"
+### "Integration Tests"
 More of a test frame to allow you to call the endpoint without using the UI.
 - Induct: `npx ts-node test/inductExample.ts`
 - Stow: `npx ts-node test/stowExample.ts`
@@ -75,12 +71,13 @@ mutation Stow($input: StowInput!) {
 }
 ```
 
-## Changes (Where's the product owner!?)
+## Changes/Notes
 - Added a state, READY, that comes before INDUCTED, that is required to induct a package
 - Induct will go through all packages provided and return an aggregated status for each
 - Pallets must exist before they can be loaded
-- induct and stow offer different behaviors; induct will do what it can while stow aborts on any error
+- `induct` and `stow` offer different behaviors; `induct` will do what it can while `stow` aborts on the first error
 - If a Package is requested to be "re-stowed" on a pallet that it's already on, that's OK
+  - Although to get here requires some really weird edge casing. Comment in the code.
 
 
 ## Mea Culpa
@@ -96,6 +93,8 @@ mutation Stow($input: StowInput!) {
 - Shouldn't a Pallet also have a Warehouse associated with it so we can verify if a package can be put onto the pallet?
 - Not a fan of passing the "received on" timestamps in the queries. Seems like a bug waiting to happen.
 
+# Architecture
+![Architecture Image](./Architecture.jpg)
 
 ## Nit picks?
 - In the handout: the Induct Workflow calls out "when the pallet was received" when it should be package?
